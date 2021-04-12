@@ -145,6 +145,7 @@ jenkins:
       {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       name: "kubernetes"
+      name: "{{ .Values.agent.kubernetesName }}"
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       serverUrl: "https://kubernetes.default"
       {{- if .Values.agent.enabled }}

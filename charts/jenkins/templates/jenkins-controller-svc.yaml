@@ -1,3 +1,4 @@
+{{ $targetPort := .Values.controller.targetPort }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -25,14 +26,14 @@ spec:
   ports:
     - port: {{.Values.controller.servicePort}}
       name: http
-      targetPort: {{ .Values.controller.targetPort }}
+      targetPort: {{ $targetPort }}
       {{- if (and (eq .Values.controller.serviceType "NodePort") (not (empty .Values.controller.nodePort))) }}
       nodePort: {{.Values.controller.nodePort}}
       {{- end }}
 {{- range $index, $port := .Values.controller.extraPorts }}
     - port: {{ $port.port }}
       name: {{ $port.name }}
-      targetPort: {{ $port.port }}
+      targetPort: {{ $targetPort }}
 {{- end }}
   selector:
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"

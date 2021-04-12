@@ -123,13 +123,6 @@ controller:
   # ~ 2 minutes to allow Jenkins to restart when upgrading plugins. Set ReadinessTimeout to be shorter than LivenessTimeout.
   healthProbes: true
   probes:
-    startupProbe:
-      httpGet:
-        path: '{{ default "" .Values.controller.jenkinsUriPrefix }}/login'
-        port: http
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 12
     livenessProbe:
       failureThreshold: 5
       httpGet:
@@ -497,6 +490,7 @@ agent:
   jenkinsUrl:
   # connect to the specified host and port, instead of connecting directly to the Jenkins controller
   jenkinsTunnel:
+  kubernetesName: "kubernetes"
   kubernetesConnectTimeout: 5
   kubernetesReadTimeout: 15
   maxRequestsPerHostStr: "32"
